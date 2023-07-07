@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import styles from './page.module.css'
-import { getAllProducts } from '@/lib/productMethods'
+import { addProduct, getAllProducts } from '@/lib/productMethods'
 import { capitalizeFirstLetter } from '@/lib/utils';
+import { db } from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
 export default async function Home() {
   const products = await getAllProducts();
@@ -9,14 +11,25 @@ export default async function Home() {
 
   const addProductToCart = async (e: FormData) => {
     "use server"
+    const price = e.get('productPrice')?.toString();
+    const quantity = e.get('quantity')?.toString();
+    const vendorId = e.get('vendorId')?.toString();
+    const productName = e.get('productName')?.toString();
+
+    if(!price || !quantity || !vendorId || !productName) return;
+
     const productInfo = {
-      name: e.get('productName')?.toString(),
-      price: e.get('productPrice')?.toString(),
-      quantity: e.get('quantity')?.toString(),
-      vendorId: e.get('vendorId')?.toString(),
+      productName: productName.toLowerCase(),
+      price,
+      quantity: parseInt(quantity, 10),
+      vendorId: parseInt(vendorId, 10)
     }
 
     console.log('New Product Info: ', productInfo);
+
+    const res = await addProduct(productInfo);
+    console.log('res', res);
+    revalidatePath('/');
   }
 
   return (
@@ -28,7 +41,7 @@ export default async function Home() {
         <label htmlFor="productPrice">Product Price</label>
         <input type="number" name="productPrice" id="productPrice" step="any" />
         <label htmlFor="quantity">Quantity</label>
-        <input type="text" name="quantity" id="quantity" />
+        <input type="number" name="quantity" id="quantity" />
         <label htmlFor="vendorId">Vendor ID</label>
         <input type="number" name="vendorId" id="vendorId" />
         <button type='submit'>Add Product</button>
