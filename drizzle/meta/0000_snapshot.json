@@ -1,0 +1,122 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "5",
+  "dialect": "mysql",
+  "tables": {
+    "cookie_shop": {
+      "name": "cookie_shop",
+      "columns": {
+        "vendor_id": {
+          "autoincrement": true,
+          "name": "vendor_id",
+          "type": "int",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "vendor_name": {
+          "autoincrement": false,
+          "name": "vendor_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "vendor_email": {
+          "autoincrement": false,
+          "name": "vendor_email",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vendor_phone": {
+          "autoincrement": false,
+          "name": "vendor_phone",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vendor_address": {
+          "autoincrement": false,
+          "name": "vendor_address",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {}
+    },
+    "products": {
+      "name": "products",
+      "columns": {
+        "product_id": {
+          "autoincrement": true,
+          "name": "product_id",
+          "type": "int",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "vendor_id": {
+          "autoincrement": false,
+          "name": "vendor_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "product_name": {
+          "autoincrement": false,
+          "name": "product_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price": {
+          "autoincrement": false,
+          "name": "price",
+          "type": "decimal(10,2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "quantity": {
+          "autoincrement": false,
+          "name": "quantity",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "vendor_id": {
+          "name": "vendor_id",
+          "columns": [
+            "vendor_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "products_ibfk_1": {
+          "name": "products_ibfk_1",
+          "tableFrom": "products",
+          "tableTo": "cookie_shop",
+          "columnsFrom": [
+            "vendor_id"
+          ],
+          "columnsTo": [
+            "vendor_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
