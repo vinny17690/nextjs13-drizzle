@@ -100,25 +100,49 @@ a {
   text-decoration: none;
 }
 
+h4 {
+  margin: 1.5rem 0;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin: 1rem 0;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #333;
+  color: white;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease-in;
+}
+
+button {
+  display: block;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 2px solid #333;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s ease-in;
+}
+
+button:hover {
+  background-color: #222;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
 }
 
-.nav-item {
-  display: inline-block;
-  margin: 0 10px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  color: #333;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.2s ease-in;
-}
-
-.nav-item:hover {
-  background-color: #333;
-  color: #fff;
-}

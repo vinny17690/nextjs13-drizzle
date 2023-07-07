@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import styles from './NavBar.module.css';
 
 /**
  * Defines a type for a dictionary of URLs.
@@ -18,7 +19,11 @@ export default function NavBar({urls, prefix}: {urls: Urls, prefix?: string}) {
       Object.entries(urls).map(([label, value]) => [label, `${prefix}/${value}`])
     );
   }
-  return Object.entries(urls).map(url => {
-    return <Link href={url[1]} className="nav-item">{url[0]}</Link>;
-  });
+  return (
+    <div className={styles.navbar}>
+      {Object.entries(urls).map(url => {
+        return <Link href={url[1]} key={url[1]} className={styles.navItem}>{url[0]}</Link>;
+      })}
+    </div>
+  );
 }
