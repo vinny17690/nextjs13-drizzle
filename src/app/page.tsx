@@ -2,12 +2,12 @@ import Link from 'next/link'
 import styles from './page.module.css'
 import { addProduct, getAllProducts } from '@/lib/productMethods'
 import { capitalizeFirstLetter } from '@/lib/utils';
-import { db } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
+import { getAllVendorNameAndIds } from '@/lib/vendorMethods';
 
 export default async function Home() {
   const products = await getAllProducts();
-  console.log(products);
+  const vendorIds = await getAllVendorNameAndIds();
 
   const addProductToCart = async (e: FormData) => {
     "use server"
@@ -25,10 +25,7 @@ export default async function Home() {
       vendorId: parseInt(vendorId, 10)
     }
 
-    console.log('New Product Info: ', productInfo);
-
-    const res = await addProduct(productInfo);
-    console.log('res', res);
+    await addProduct(productInfo);
     revalidatePath('/');
   }
 
@@ -42,8 +39,12 @@ export default async function Home() {
         <input type="number" name="productPrice" id="productPrice" step="any" />
         <label htmlFor="quantity">Quantity</label>
         <input type="number" name="quantity" id="quantity" />
-        <label htmlFor="vendorId">Vendor ID</label>
-        <input type="number" name="vendorId" id="vendorId" />
+        <label htmlFor="vendorId">Vendor</label>
+        <select name="vendorId" id="vendorId">
+          {vendorIds.map(({vendorId, vendorName}) => (
+            <option key={vendorId} value={vendorId}>{`${vendorName} (${vendorId})`}</option>
+          ))}
+        </select>
         <button type='submit'>Add Product</button>
       </form>
 
