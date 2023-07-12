@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import styles from './page.module.css'
-import { addProduct, deleteProductById, getAllProducts } from '@/lib/productMethods'
+import { addProduct, getAllProducts } from '@/lib/productMethods'
 import { capitalizeFirstLetter } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 import { getAllVendorNameAndIds } from '@/lib/vendorMethods';
@@ -36,7 +36,7 @@ export default async function Home() {
       <div className={styles.grid}>
         { products.map((product) => (
             <div key={product.productId} className={styles.card}>
-              <Link href={`/products/${product.productId}`}>
+              <Link href={`/product/${product.productId}`}>
                 {capitalizeFirstLetter(product.productName)}
               </Link>
               <p>Product ID: {product.productId}</p>

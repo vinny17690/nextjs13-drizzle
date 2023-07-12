@@ -11,8 +11,6 @@ export const metadata = {
 
 const urls = {
   Home: '/',
-  Demo: '/demo',
-  About: '/about',
   Person: '/person',
 };
 
