@@ -6,9 +6,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15%, auto));
-  /* width: var(--max-width); */
-  /* max-width: 100%; */
+  grid-template-columns: repeat(auto-fit, minmax(25%, 150px));
 }
 
 .card {
@@ -38,7 +36,6 @@
   opacity: 0.6;
   font-size: 0.9rem;
   line-height: 1.5;
-  max-width: 30ch;
 }
 
 .center {
