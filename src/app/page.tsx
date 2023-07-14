@@ -33,7 +33,7 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.productList}>
-        <h4>Product List</h4>
+        <h4 className={styles.stickyTitle}>Product List</h4>
         <div className={styles.grid}>
           { products.map((product) => (
               <div key={product.productId} className={styles.card}>
