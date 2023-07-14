@@ -1,12 +1,18 @@
 .main {
   padding: 4rem;
-  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 2.2fr 0.8fr;
+  overflow: hidden;
+}
 
+.productList {
+  overflow-y: scroll;
+  max-height: 100vh; /* Set a maximum height to limit the size of the list */
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25%, 150px));
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .card {

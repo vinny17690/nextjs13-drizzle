@@ -2,10 +2,20 @@ import { getProductById } from "@/lib/productMethods"
 import styles from '@/app/page.module.css'
 import { capitalizeFirstLetter } from "@/lib/utils";
 import Link from "next/link";
+import { Metadata } from "next";
 
-export const metadata = {
-  title: 'Product Details Page',
-  description: 'Find all details about a product here',
+type MetadataProps = {
+  params : { productId: string };
+}
+
+export async function generateMetadata(
+  { params } : MetadataProps
+): Promise<Metadata> {
+  return {
+    title: `Product details page for ${params.productId}`,
+    description: `Find all details about ${params.productId} here`,
+    authors: [{name: 'Vinay Tallapalli', url: 'https://vinaytallapalli.com'}]
+  }
 }
 
 export default async function SingleProduct({ params } : {  params: { productId: string } }) {

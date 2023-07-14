@@ -4,7 +4,7 @@ import { addProduct, getAllProducts } from '@/lib/productMethods'
 import { capitalizeFirstLetter } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 import { getAllVendorNameAndIds } from '@/lib/vendorMethods';
-import DeleteProductBtn from '../components/DeleteProductBtn';
+import DeleteProductBtn from '../components/DeleteProductBtn/DeleteProductBtn';
 
 export default async function Home() {
   const products = await getAllProducts();
@@ -32,39 +32,43 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
-      <h4>Product List</h4>
-      <div className={styles.grid}>
-        { products.map((product) => (
-            <div key={product.productId} className={styles.card}>
-              <Link href={`/product/${product.productId}`}>
-                {capitalizeFirstLetter(product.productName)}
-              </Link>
-              <p>Product ID: {product.productId}</p>
-              <p>Vendor ID: {product.vendorId}</p>
-              <p>Price: ${product.price}</p>
-              <p>In Stock: {product.quantity}</p>
-              <DeleteProductBtn productId={product.productId}/>
-            </div>
-          ))
-        }
+      <div className={styles.productList}>
+        <h4>Product List</h4>
+        <div className={styles.grid}>
+          { products.map((product) => (
+              <div key={product.productId} className={styles.card}>
+                <Link href={`/product/${product.productId}`}>
+                  {capitalizeFirstLetter(product.productName)}
+                </Link>
+                <p>Product ID: {product.productId}</p>
+                <p>Vendor ID: {product.vendorId}</p>
+                <p>Price: ${product.price}</p>
+                <p>In Stock: {product.quantity}</p>
+                <DeleteProductBtn productId={product.productId}/>
+              </div>
+            ))
+          }
+        </div>
       </div>
 
-      <h4>Add Product</h4>
-      <form action={addProductToCart}>
-        <label htmlFor="productName">Product Name</label>
-        <input type="text" name="productName" id="productName" />
-        <label htmlFor="productPrice">Product Price</label>
-        <input type="number" name="productPrice" id="productPrice" step="any" />
-        <label htmlFor="quantity">Quantity</label>
-        <input type="number" name="quantity" id="quantity" />
-        <label htmlFor="vendorId">Vendor</label>
-        <select name="vendorId" id="vendorId">
-          {vendorIds.map(({vendorId, vendorName}) => (
-            <option key={vendorId} value={vendorId}>{`${vendorName} (${vendorId})`}</option>
-          ))}
-        </select>
-        <button type='submit'>Add Product</button>
-      </form>
+      <div className={styles.addProductForm}>
+        <h4>Add Product</h4>
+        <form action={addProductToCart}>
+          <label htmlFor="productName">Product Name</label>
+          <input type="text" name="productName" id="productName" />
+          <label htmlFor="productPrice">Product Price</label>
+          <input type="number" name="productPrice" id="productPrice" step="any" />
+          <label htmlFor="quantity">Quantity</label>
+          <input type="number" name="quantity" id="quantity" />
+          <label htmlFor="vendorId">Vendor</label>
+          <select name="vendorId" id="vendorId">
+            {vendorIds.map(({vendorId, vendorName}) => (
+              <option key={vendorId} value={vendorId}>{`${vendorName} (${vendorId})`}</option>
+            ))}
+          </select>
+          <button type='submit'>Add Product</button>
+        </form>
+      </div>
     </main>
   )
 }
