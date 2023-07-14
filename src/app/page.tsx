@@ -5,8 +5,7 @@ import { capitalizeFirstLetter } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 import { getAllVendorNameAndIds } from '@/lib/vendorMethods';
 import DeleteProductBtn from '../components/DeleteProductBtn/DeleteProductBtn';
-import Card from '@mui/material/Card'
-import { Button, Typography } from '@mui/material';
+import { Button, Card, Typography } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export default async function Home() {
@@ -39,10 +38,28 @@ export default async function Home() {
         <h4 className={styles.stickyTitle}>Product List</h4>
         <div className={styles.productGrid}>
           { products.map((product) => (
-              <Card sx={{ minWidth: 275, padding: 4 }} key={product.productId} variant="outlined">
-                <Link href={`/product/${product.productId}`}>
-                  {capitalizeFirstLetter(product.productName)}
-                </Link>
+              <Card sx={{
+                minWidth: 275,
+                padding: 4, 
+                transition: 'transform 0.2s',
+                '&:hover': {transform: 'scale(1.05)'} 
+                }} 
+                key={product.productId}
+                variant="outlined"
+              >
+                <Typography sx={{
+                  cursor: 'pointer',
+                  fontSize: 20,
+                  fontWeight: 600,
+                  marginBottom: 1,
+                  letterSpacing: 0.5,
+                  textTransform: 'uppercase',
+                  textDecoration: 'underline',
+                 }}>
+                  <Link href={`/product/${product.productId}`} className={styles.title}>
+                    {capitalizeFirstLetter(product.productName)}
+                  </Link>
+                </Typography>
                   <Typography>
                     Product ID: {product.productId}
                   </Typography>
