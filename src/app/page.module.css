@@ -1,13 +1,5 @@
 .main {
   padding: 4rem;
-  display: grid;
-  grid-template-columns: 2.2fr 0.8fr;
-  overflow: hidden;
-}
-
-.productList {
-  overflow-y: auto;
-  max-height: 80vh; /* Set a maximum height to limit the size of the list */
 }
 
 .productGrid {

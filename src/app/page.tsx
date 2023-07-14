@@ -5,7 +5,7 @@ import { capitalizeFirstLetter } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 import { getAllVendorNameAndIds } from '@/lib/vendorMethods';
 import DeleteProductBtn from '../components/DeleteProductBtn/DeleteProductBtn';
-import { Button, Card, Typography } from '@mui/material';
+import { Button, Card, Grid, Typography } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export default async function Home() {
@@ -36,11 +36,25 @@ export default async function Home() {
     <main className={styles.main}>
       <div className={styles.productList}>
         <h4 className={styles.stickyTitle}>Product List</h4>
-        <div className={styles.productGrid}>
+        <Grid
+          container
+          spacing={2}
+          rowSpacing={1}
+          columnSpacing={{ xs: 1, sm: 2 }}
+          sx={{ textAlign: 'center' }}
+        >
           { products.map((product) => (
+            <Grid
+              item
+              key={product.productId}
+              xs={12}
+              sm={6}
+              md={4}
+              lg={2}
+            >
               <Card sx={{
-                minWidth: 275,
-                padding: 4, 
+                maxWidth: 300,
+                padding: 4,
                 transition: 'transform 0.2s',
                 '&:hover': {transform: 'scale(1.05)'} 
                 }} 
@@ -55,7 +69,7 @@ export default async function Home() {
                   letterSpacing: 0.5,
                   textTransform: 'uppercase',
                   textDecoration: 'underline',
-                 }}>
+                }}>
                   <Link href={`/product/${product.productId}`} className={styles.title}>
                     {capitalizeFirstLetter(product.productName)}
                   </Link>
@@ -74,9 +88,10 @@ export default async function Home() {
                   </Typography>
                 <DeleteProductBtn productId={product.productId}/>
               </Card>
+            </Grid>
             ))
           }
-        </div>
+        </Grid>
       </div>
 
       <div className={styles.addProductForm}>
