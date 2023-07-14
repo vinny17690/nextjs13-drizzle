@@ -34,96 +34,100 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
-      <div className={styles.productList}>
-        <h4 className={styles.stickyTitle}>Product List</h4>
-        <Grid
-          container
-          spacing={2}
-          rowSpacing={1}
-          columnSpacing={{ xs: 1, sm: 2 }}
-          sx={{ textAlign: 'center' }}
-        >
-          { products.map((product) => (
-            <Grid
-              item
-              key={product.productId}
-              xs={12}
-              sm={6}
-              md={4}
-              lg={2}
-            >
-              <Card sx={{
-                maxWidth: 300,
-                padding: 4,
-                transition: 'transform 0.2s',
-                '&:hover': {transform: 'scale(1.05)'} 
-                }} 
-                key={product.productId}
-                variant="outlined"
-              >
-                <Typography sx={{
-                  cursor: 'pointer',
-                  fontSize: 20,
-                  fontWeight: 600,
-                  marginBottom: 1,
-                  letterSpacing: 0.5,
-                  textTransform: 'uppercase',
-                  textDecoration: 'underline',
-                }}>
-                  <Link href={`/product/${product.productId}`} className={styles.title}>
-                    {capitalizeFirstLetter(product.productName)}
-                  </Link>
-                </Typography>
-                  <Typography>
-                    Product ID: {product.productId}
-                  </Typography>
-                  <Typography>
-                    Vendor ID: {product.vendorId}
-                  </Typography>
-                  <Typography>
-                    Price: ${product.price}
-                  </Typography>
-                  <Typography>
-                    In Stock: {product.quantity}
-                  </Typography>
-                <DeleteProductBtn productId={product.productId}/>
-              </Card>
-            </Grid>
-            ))
-          }
-        </Grid>
-      </div>
-
-      <div className={styles.addProductForm}>
-        <h4>Add Product</h4>
-        <form action={addProductToCart}>
-          <label htmlFor="productName">Product Name</label>
-          <input type="text" name="productName" id="productName" />
-          <label htmlFor="productPrice">Product Price</label>
-          <input type="number" name="productPrice" id="productPrice" step="any" />
-          <label htmlFor="quantity">Quantity</label>
-          <input type="number" name="quantity" id="quantity" />
-          <label htmlFor="vendorId">Vendor</label>
-          <select name="vendorId" id="vendorId">
-            {vendorIds.map(({vendorId, vendorName}) => (
-              <option key={vendorId} value={vendorId}>{`${vendorName} (${vendorId})`}</option>
-            ))}
-          </select>
-          <Button
-            endIcon={<AddCircleIcon />}
-            sx={{
-              marginTop: 3,
-              marginBottom: 3,
-              paddingTop: 1.25,
-              paddingBottom: 1.25
-            }}
-            type="submit"
-            variant="contained"
+      <Grid container>
+        <Grid item xs={12} xl={9.5}>
+          <div className={styles.productList}>
+          <h4 className={styles.stickyTitle}>Product List</h4>
+          <Grid
+            container
+            rowSpacing={{ xs: 1, sm: 2 }}
+            columnSpacing={{ xs: 1, sm: 2 }}
+            sx={{ textAlign: 'center' }}
           >
-            Add Product
-          </Button>
-        </form>
-      </div>
+            { products.map((product) => (
+              <Grid
+                item
+                key={product.productId}
+                xs={12}
+                sm={6}
+                md={4}
+                lg={2}
+              >
+                <Card sx={{
+                  maxWidth: 300,
+                  padding: 4,
+                  transition: 'transform 0.2s',
+                  '&:hover': {transform: 'scale(1.05)'} 
+                  }} 
+                  key={product.productId}
+                  variant="outlined"
+                >
+                  <Typography sx={{
+                    cursor: 'pointer',
+                    fontSize: 20,
+                    fontWeight: 600,
+                    marginBottom: 1,
+                    letterSpacing: 0.5,
+                    textTransform: 'uppercase',
+                    textDecoration: 'underline',
+                  }}>
+                    <Link href={`/product/${product.productId}`} className={styles.title}>
+                      {capitalizeFirstLetter(product.productName)}
+                    </Link>
+                  </Typography>
+                    <Typography>
+                      Product ID: {product.productId}
+                    </Typography>
+                    <Typography>
+                      Vendor ID: {product.vendorId}
+                    </Typography>
+                    <Typography>
+                      Price: ${product.price}
+                    </Typography>
+                    <Typography>
+                      In Stock: {product.quantity}
+                    </Typography>
+                  <DeleteProductBtn productId={product.productId}/>
+                </Card>
+              </Grid>
+              ))
+            }
+          </Grid>
+        </div>
+        </Grid>
+        <Grid item xs={12} xl={2.5}>
+          <div className={styles.addProductForm}>
+            <h4>Add Product</h4>
+            <form action={addProductToCart}>
+              <label htmlFor="productName">Product Name</label>
+              <input type="text" name="productName" id="productName" />
+              <label htmlFor="productPrice">Product Price</label>
+              <input type="number" name="productPrice" id="productPrice" step="any" />
+              <label htmlFor="quantity">Quantity</label>
+              <input type="number" name="quantity" id="quantity" />
+              <label htmlFor="vendorId">Vendor</label>
+              <select name="vendorId" id="vendorId">
+                {vendorIds.map(({vendorId, vendorName}) => (
+                  <option key={vendorId} value={vendorId}>{`${vendorName} (${vendorId})`}</option>
+                ))}
+              </select>
+              <Button
+                endIcon={<AddCircleIcon />}
+                sx={{
+                  marginTop: 3,
+                  marginBottom: 3,
+                  paddingTop: 1.25,
+                  paddingBottom: 1.25
+                }}
+                type="submit"
+                variant="contained"
+              >
+                Add Product
+              </Button>
+            </form>
+          </div>
+        </Grid>
+      </Grid>
     </main>
   )
 }
