@@ -5,6 +5,9 @@ import { capitalizeFirstLetter } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 import { getAllVendorNameAndIds } from '@/lib/vendorMethods';
 import DeleteProductBtn from '../components/DeleteProductBtn/DeleteProductBtn';
+import Card from '@mui/material/Card'
+import { Button, Typography } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export default async function Home() {
   const products = await getAllProducts();
@@ -34,18 +37,26 @@ export default async function Home() {
     <main className={styles.main}>
       <div className={styles.productList}>
         <h4 className={styles.stickyTitle}>Product List</h4>
-        <div className={styles.grid}>
+        <div className={styles.productGrid}>
           { products.map((product) => (
-              <div key={product.productId} className={styles.card}>
+              <Card sx={{ minWidth: 275, padding: 4 }} key={product.productId} variant="outlined">
                 <Link href={`/product/${product.productId}`}>
                   {capitalizeFirstLetter(product.productName)}
                 </Link>
-                <p>Product ID: {product.productId}</p>
-                <p>Vendor ID: {product.vendorId}</p>
-                <p>Price: ${product.price}</p>
-                <p>In Stock: {product.quantity}</p>
+                  <Typography>
+                    Product ID: {product.productId}
+                  </Typography>
+                  <Typography>
+                    Vendor ID: {product.vendorId}
+                  </Typography>
+                  <Typography>
+                    Price: ${product.price}
+                  </Typography>
+                  <Typography>
+                    In Stock: {product.quantity}
+                  </Typography>
                 <DeleteProductBtn productId={product.productId}/>
-              </div>
+              </Card>
             ))
           }
         </div>
@@ -66,7 +77,19 @@ export default async function Home() {
               <option key={vendorId} value={vendorId}>{`${vendorName} (${vendorId})`}</option>
             ))}
           </select>
-          <button type='submit'>Add Product</button>
+          <Button
+            endIcon={<AddCircleIcon />}
+            sx={{
+              marginTop: 3,
+              marginBottom: 3,
+              paddingTop: 1.25,
+              paddingBottom: 1.25
+            }}
+            type="submit"
+            variant="contained"
+          >
+            Add Product
+          </Button>
         </form>
       </div>
     </main>
